@@ -25,6 +25,13 @@ async function run() {
       const places = await cursor.toArray();
       res.send(places);
     });
+
+    app.get("/place/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const place = await placeCollection.findOne(query);
+      res.send(place);
+    });
   } finally {
   }
 }
