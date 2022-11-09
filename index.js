@@ -20,9 +20,10 @@ async function run() {
   try {
     const placeCollection = client.db("tourist-services").collection("places");
     app.get("/place", async (req, res) => {
+      const size = parseInt(req.query.size);
       const query = {};
       const cursor = placeCollection.find(query);
-      const places = await cursor.limit(3).toArray();
+      const places = await cursor.limit(size).toArray();
       res.send(places);
     });
 
