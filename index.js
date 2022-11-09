@@ -19,6 +19,10 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const placeCollection = client.db("tourist-services").collection("places");
+
+    const reviewCollection = client.db("tourist-services").collection("review");
+
+    // Tourist Place API
     app.get("/place", async (req, res) => {
       const size = parseInt(req.query.size);
       const query = {};
@@ -32,6 +36,14 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const place = await placeCollection.findOne(query);
       res.send(place);
+    });
+
+    // Review Related API
+
+    app.post("/review", async (req, res) => {
+      const review = req.body;
+      const result = await reviewCollection.insertOne(review);
+      res.send(result);
     });
   } finally {
   }
