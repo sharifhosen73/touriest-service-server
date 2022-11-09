@@ -22,7 +22,7 @@ async function run() {
     app.get("/place", async (req, res) => {
       const query = {};
       const cursor = placeCollection.find(query);
-      const places = await cursor.toArray();
+      const places = await cursor.limit(3).toArray();
       res.send(places);
     });
 
